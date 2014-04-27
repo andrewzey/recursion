@@ -46,7 +46,10 @@ var stringifyJSON = function(obj) {
   	var objResult = '{';
 
   	for (var key in obj) {
-  		objResult += '"' + key + '":' + stringifyJSON(obj[key]) + ","; 
+  		//ignore functions and undefined values
+  		if (typeof obj[key] !== "function" && typeof obj[key] !== "undefined") {
+  			objResult += '"' + key + '":' + stringifyJSON(obj[key]) + ","; 
+  		}
   	}
 
   	//remove trailing comma
@@ -60,33 +63,33 @@ var stringifyJSON = function(obj) {
   
 };
 
-var stringifiableValues = [
-  9,
-  null,
-  true,
-  false,
-  "Hello world",
-  [],
-  [8],
-  ["hi"],
-  [8, "hi"],
-  [1, 0, -1, -0.3, 0.3, 1343.32, 3345, 0.00011999999999999999],
-  [8, [[],3,4]],
-  [[[["foo"]]]],
-  {},
-  {"a": "apple"},
-  {"foo": true, "bar": false, "baz": null},
-  {"boolean, true": true, "boolean, false": false, "null": null },
-  // basic nesting
-  {"a":{"b":"c"}},
-  {"a":["b", "c"]},
-  [{"a":"b"}, {"c":"d"}],
-  {"a":[],"c": {}, "b": true}
-];
+// var stringifiableValues = [
+//   9,
+//   null,
+//   true,
+//   false,
+//   "Hello world",
+//   [],
+//   [8],
+//   ["hi"],
+//   [8, "hi"],
+//   [1, 0, -1, -0.3, 0.3, 1343.32, 3345, 0.00011999999999999999],
+//   [8, [[],3,4]],
+//   [[[["foo"]]]],
+//   {},
+//   {"a": "apple"},
+//   {"foo": true, "bar": false, "baz": null},
+//   {"boolean, true": true, "boolean, false": false, "null": null },
+//   // basic nesting
+//   {"a":{"b":"c"}},
+//   {"a":["b", "c"]},
+//   [{"a":"b"}, {"c":"d"}],
+//   {"a":[],"c": {}, "b": true}
+// ];
 
-for (var z = 0; z < stringifiableValues.length; z++) {
-	console.log(stringifyJSON(stringifiableValues[z]));
-}
+// for (var z = 0; z < stringifiableValues.length; z++) {
+// 	console.log(stringifyJSON(stringifiableValues[z]));
+// }
 
 
 
