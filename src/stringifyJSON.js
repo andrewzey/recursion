@@ -31,7 +31,12 @@ var stringifyJSON = function(obj) {
   	} else {
   		var result = '[';
   		for (var i = 0; i < obj.length; i++) {
-  			result += stringifyJSON(obj[i]);
+  			//if last element, don't add comma
+  			if (i === (obj.length - 1)) {
+  				result += stringifyJSON(obj[i]);
+  			} else {
+  				result += stringifyJSON(obj[i]) + ',';
+  			}	
   		}
   		result += ']';
   		return result;
@@ -64,7 +69,7 @@ var stringifiableValues = [
   {"a":[],"c": {}, "b": true}
 ];
 
-for (var z = 0; z < 9; z++) {
+for (var z = 0; z < 12; z++) {
 	console.log(stringifyJSON(stringifiableValues[z]));
 }
 
