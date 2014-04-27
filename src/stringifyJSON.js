@@ -26,22 +26,36 @@ var stringifyJSON = function(obj) {
 
   //if obj is array
   if (Array.isArray(obj)) {
-		var result = '[';
+		var arrResult = '[';
+
 		for (var i = 0; i < obj.length; i++) {
 			//if last element, don't add comma
 			if (i === (obj.length - 1)) {
-				result += stringifyJSON(obj[i]);
+				arrResult += stringifyJSON(obj[i]);
 			} else {
-				result += stringifyJSON(obj[i]) + ',';
+				arrResult += stringifyJSON(obj[i]) + ',';
 			}	
 		}
-		result += ']';
-		return result;
+
+		arrResult += ']';
+		return arrResult;
   }
 
   //if obj is obj
   if (typeof obj === "object" && !Array.isArray(obj) && obj !== null) {
-  	return '{}';
+  	var objResult = '{';
+
+  	for (var key in obj) {
+  		objResult += '"' + key + '":' + stringifyJSON(obj[key]) + ","; 
+  	}
+
+  	//remove trailing comma
+  	if (objResult[objResult.length-1] === ",") {
+  		objResult = objResult.slice(0,-1); 
+  	}
+
+  	objResult += '}';
+  	return objResult;
   }
   
 };
@@ -70,7 +84,7 @@ var stringifiableValues = [
   {"a":[],"c": {}, "b": true}
 ];
 
-for (var z = 0; z < 13; z++) {
+for (var z = 0; z < stringifiableValues.length; z++) {
 	console.log(stringifyJSON(stringifiableValues[z]));
 }
 
