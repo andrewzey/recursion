@@ -29,13 +29,13 @@ var stringifyJSON = function(obj) {
 		var arrResult = '[';
 
 		for (var i = 0; i < obj.length; i++) {
-			//if last element, don't add comma
-			if (i === (obj.length - 1)) {
-				arrResult += stringifyJSON(obj[i]);
-			} else {
-				arrResult += stringifyJSON(obj[i]) + ',';
-			}	
+			arrResult += stringifyJSON(obj[i]) + ',';
 		}
+
+		//remove trailing comma
+  	if (arrResult[arrResult.length-1] === ",") {
+  		arrResult = arrResult.slice(0,-1); 
+  	}
 
 		arrResult += ']';
 		return arrResult;
