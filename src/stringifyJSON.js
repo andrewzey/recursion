@@ -29,23 +29,44 @@ var stringifyJSON = function(obj) {
   	if (obj.length === 0) {
   		return '[]';
   	} else {
-  		// var result = '[';
-  		// for (var i = 0; i < obj.length; i++) {
-  		// 	stringifyJSON(i);
-  		// }
-  		// result += ']';
-  		// return result;
+  		var result = '[';
+  		for (var i = 0; i < obj.length; i++) {
+  			result += stringifyJSON(obj[i]);
+  		}
+  		result += ']';
+  		return result;
   	}
   }
   
 };
 
-console.log(stringifyJSON(9));
-console.log(stringifyJSON(null));
-console.log(stringifyJSON(true));
-console.log(stringifyJSON(false));
-console.log(stringifyJSON("Hello World"));
-console.log(stringifyJSON([]));
+var stringifiableValues = [
+  9,
+  null,
+  true,
+  false,
+  "Hello world",
+  [],
+  [8],
+  ["hi"],
+  [8, "hi"],
+  [1, 0, -1, -0.3, 0.3, 1343.32, 3345, 0.00011999999999999999],
+  [8, [[],3,4]],
+  [[[["foo"]]]],
+  {},
+  {"a": "apple"},
+  {"foo": true, "bar": false, "baz": null},
+  {"boolean, true": true, "boolean, false": false, "null": null },
+  // basic nesting
+  {"a":{"b":"c"}},
+  {"a":["b", "c"]},
+  [{"a":"b"}, {"c":"d"}],
+  {"a":[],"c": {}, "b": true}
+];
+
+for (var z = 0; z < 9; z++) {
+	console.log(stringifyJSON(stringifiableValues[z]));
+}
 
 
 
