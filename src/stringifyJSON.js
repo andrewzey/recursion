@@ -3,33 +3,53 @@
 
 // but you don't so you're going to write it from scratch:
 var stringifyJSON = function(obj) {
-  var result = '';
 
   //if obj is a number
   if (typeof obj === "number") {
-  	result = obj.toString();
+  	return obj.toString();
   }
 
   //if obj is undefined
-  if (!obj) {
-  	result = 'null';
+  if (obj === null) {
+  	return 'null';
   }
 
   //if obj is boolean
   if (typeof obj === "boolean") {
-  	result = (obj) ? 'true' : 'false';
+  	return (obj) ? 'true' : 'false';
   }
 
   //if obj is a string
   if (typeof obj === "string") {
-  	result += '"' + obj + '"';
+  	return '"' + obj + '"';
   }
 
   //if obj is array
   if (Array.isArray(obj)) {
-  	result = (obj.length === 0) ? '[]': '';
+  	if (obj.length === 0) {
+  		return '[]';
+  	} else {
+  		// var result = '[';
+  		// for (var i = 0; i < obj.length; i++) {
+  		// 	stringifyJSON(i);
+  		// }
+  		// result += ']';
+  		// return result;
+  	}
   }
   
-  console.log(result);
-  return result;
 };
+
+console.log(stringifyJSON(9));
+console.log(stringifyJSON(null));
+console.log(stringifyJSON(true));
+console.log(stringifyJSON(false));
+console.log(stringifyJSON("Hello World"));
+console.log(stringifyJSON([]));
+
+
+
+
+
+
+
