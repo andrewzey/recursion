@@ -24,43 +24,44 @@ var stringifyJSON = function(obj) {
   	return '"' + obj + '"';
   }
 
+  var result = '';
+  
   //if obj is array
   if (Array.isArray(obj)) {
-		var arrResult = '[';
+		result += '[';
 
 		for (var i = 0; i < obj.length; i++) {
-			arrResult += stringifyJSON(obj[i]) + ',';
+			result += stringifyJSON(obj[i]) + ',';
 		}
 
 		//remove trailing comma
-  	if (arrResult[arrResult.length-1] === ",") {
-  		arrResult = arrResult.slice(0,-1); 
+  	if (result[result.length-1] === ",") {
+  		result = result.slice(0,-1); 
   	}
 
-		arrResult += ']';
-		return arrResult;
+		result += ']';
   }
 
   //if obj is obj
   if (typeof obj === "object" && !Array.isArray(obj) && obj !== null) {
-  	var objResult = '{';
+  	result += '{';
 
   	for (var key in obj) {
   		//ignore functions and undefined values
   		if (typeof obj[key] !== "function" && typeof obj[key] !== "undefined") {
-  			objResult += '"' + key + '":' + stringifyJSON(obj[key]) + ","; 
+  			result += '"' + key + '":' + stringifyJSON(obj[key]) + ","; 
   		}
   	}
 
   	//remove trailing comma
-  	if (objResult[objResult.length-1] === ",") {
-  		objResult = objResult.slice(0,-1); 
-  	}
+    if (result[result.length-1] === ",") {
+      result = result.slice(0,-1); 
+    }
 
-  	objResult += '}';
-  	return objResult;
+  	result += '}';
   }
-  
+
+  return result;
 };
 
 // var stringifiableValues = [
